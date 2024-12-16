@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import '../widgets/task_tile.dart';
 import '../models/task.dart';
 import '../widgets/task_input.dart';
+import '../widgets/task_search_delegate.dart';
 
 class HomeScreen extends StatefulWidget {
+  final bool isDarkMode;
+  final VoidCallback toggleTheme;
+
+  HomeScreen({required this.isDarkMode, required this.toggleTheme});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -54,6 +60,21 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text('To-Do List'),
         actions: [
+          // First, place the search icon (search bar)
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () async {
+              final result = await showSearch(
+                  context: context, delegate: TaskSearchDelegate(tasks));
+              // handle result if needed
+            },
+          ),
+          // Then, add the dark/light mode toggle button
+          IconButton(
+            icon: Icon(Icons.brightness_6),
+            onPressed: widget.toggleTheme,
+          ),
+          // Finally, place the filter menu (three dots)
           PopupMenuButton<String>(
             onSelected: (value) {
               setState(() {
