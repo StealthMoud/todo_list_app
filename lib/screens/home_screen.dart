@@ -60,21 +60,22 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text('To-Do List'),
         actions: [
-          // First, place the search icon (search bar)
+          // Search icon at the far right (search bar)
           IconButton(
-            icon: Icon(Icons.search),
+            icon: Icon(Icons.search), // This is the search icon
             onPressed: () async {
               final result = await showSearch(
                   context: context, delegate: TaskSearchDelegate(tasks));
-              // handle result if needed
+              // Handle result if needed
             },
           ),
-          // Then, add the dark/light mode toggle button
+          // Dark/Light mode icon
           IconButton(
-            icon: Icon(Icons.brightness_6),
+            icon: Icon(
+                Icons.brightness_6), // This is the dark/light mode toggle icon
             onPressed: widget.toggleTheme,
           ),
-          // Finally, place the filter menu (three dots)
+          // Three dots (more options) icon for filter
           PopupMenuButton<String>(
             onSelected: (value) {
               setState(() {
@@ -86,6 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
               PopupMenuItem(value: 'Completed', child: Text('Completed')),
               PopupMenuItem(value: 'Pending', child: Text('Pending')),
             ],
+            icon: Icon(Icons.more_vert), // This is the three dots (menu) icon
           ),
         ],
       ),
